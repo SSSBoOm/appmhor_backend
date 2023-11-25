@@ -2,7 +2,6 @@ import { UserType } from '@/Types/user.type'
 import { User } from '@/lib/prisma'
 import { Request, Response } from 'express'
 import { cookieConfig } from '..'
-import { log } from 'console'
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -42,9 +41,13 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
+    const id = req.cookies.id || ''
+    if (id === '') {
+      throw new Error('No Cookie')
+    }
     const result = await User.update({
       where: {
-        thai_id: '123',
+        id: req.cookies.id,
       },
       data: {
         address: req.body.address,
@@ -75,7 +78,7 @@ export const getUser = async (req: Request, res: Response) => {
     }
     const result = await User.findUnique({
       where: {
-        thai_id: id,
+        id: id,
       },
     })
 
