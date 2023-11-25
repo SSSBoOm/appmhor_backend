@@ -1,4 +1,3 @@
-import { UserType } from '@/Types/user.type'
 import { User } from '@/lib/prisma'
 import { Request, Response } from 'express'
 import { cookieConfig } from '..'
