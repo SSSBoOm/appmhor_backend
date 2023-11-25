@@ -3,6 +3,7 @@ const router: Router = express.Router()
 import * as userController from '@/Controller/user.controller'
 
 router.route('/').post(userController.createUser).patch(userController.updateUser)
+router.route('logout').post(userController.Logout)
 router.route('/me').get(userController.getUser)
 
 export const userRoute: Router = router

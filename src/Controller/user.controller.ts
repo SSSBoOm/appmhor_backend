@@ -96,3 +96,15 @@ export const getUser = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const Logout = async (req: Request, res: Response) => {
+  try {
+    res.status(200).clearCookie('id')
+    return res.end()
+  } catch (error) {
+    res.status(400).send({
+      message: 'Insert Fail',
+      status: false,
+    })
+  }
+}
