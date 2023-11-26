@@ -1,23 +1,8 @@
-FROM node:18-alpine AS node
-COPY . /app
+FROM node:latest
 WORKDIR /app
-
-# Set timezone
-RUN apk add tzdata
-ENV TZ Asia/Bangkok
-
-FROM node AS prod-deps
-RUN npm install --omit=dev --frozen-lockfile
-RUN npx prisma generate
-
-FROM node AS build
-RUN npm install --frozen-lockfile
+COPY package*.json ./
+RUN npm install
+COPY . .
 RUN npm run build
-
-FROM node
-COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist /app/dist
-
-ENV PORT=8080
-EXPOSE $PORT
+EXPOSE 8080
 CMD ["npm","start"]

@@ -1,31 +1,25 @@
-version: "3"
+version: '3'
+
 services:
-  backend:
-    build:
-      context: .
-      args:
-        NODE_ENV: production
+  api:
+    build: .
     ports:
-      - "8080:8080"
-    env_file:
-      - .env
-    command: node dist/index.js
-    restart: on-failure
+      - 8080:8080
+    volumes:
+      - ".:/api"
     depends_on:
       - mysql
 
   mysql:
     image: mysql:8
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
-      - ./volumes/db:/var/lib/mysql
-    env_file:
-      - .env
+      - ./mysql:/var/lib/mysql
     environment:
+      MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: appmhor
-      MYSQL_ROOT_PASSWORD: $DB_PASS
-
+  
   phpmyadmin:
     image: phpmyadmin
     ports:

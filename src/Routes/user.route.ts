@@ -1,8 +1,8 @@
 import express, { Express, Router } from 'express'
 const router: Router = express.Router()
-import * as userController from '@/Controller/user.controller'
+import * as userController from '@/Controller/userTemp.controller'
 
-router.route('/').post(userController.createUser).patch(userController.updateUser)
+router.route('/').post(userController.createUser)
 router.route('logout').post(userController.Logout)
 router.route('/me').get(userController.getUser)
 
