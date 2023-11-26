@@ -21,7 +21,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://appmhor.vercel.app/', 'https://sirisoft.comcamp.io/'],
+    origin: ['http://localhost:5173', 'https://appmhor.vercel.app', 'https://sirisoft.comcamp.io'],
     credentials: true,
   }),
 )
