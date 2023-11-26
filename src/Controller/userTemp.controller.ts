@@ -4,7 +4,6 @@ const nanoid = require('nanoid')
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    console.log(req.body)
     const id = nanoid()
     db.query(
       'INSERT INTO `user`(`id`, `email`, `thai_id`, `phone`, `firstname`, `lastname`, `gender`, `birthday`, `address`, `subdistrist`, `district`, `province`, `postcode`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -60,14 +59,14 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const id = req.cookies.id || ''
+    const id = req.cookies.id
+
     if (id === '') {
-      throw new Error('No Cookie')
+      throw new Error('0')
     }
 
-    await db.query('SELECT * FROM user WHERE id = ? LIMIT 1'[id], (err: any, results: any) => {
+    db.query('SELECT * FROM user WHERE `id` = ? LIMIT 1', [id], (err: any, results: any) => {
       if (err) {
-        console.log(err)
         res.status(403).clearCookie('id')
         return res.end()
       }
@@ -78,7 +77,7 @@ export const getUser = async (req: Request, res: Response) => {
       })
     })
   } catch (error: any) {
-    res.status(403).send({
+    res.status(400).send({
       message: error,
       status: false,
     })
