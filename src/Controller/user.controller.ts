@@ -63,7 +63,7 @@ export const updateUser = async (req: Request, res: Response) => {
     })
   } catch (error) {
     res.status(400).send({
-      message: 'Insert Fail',
+      message: 'Update Fail',
       status: false,
     })
   }
@@ -105,7 +105,7 @@ export const Logout = async (req: Request, res: Response) => {
     return res.end()
   } catch (error) {
     res.status(400).send({
-      message: 'Insert Fail',
+      message: 'Logout Fail',
       status: false,
     })
   }
